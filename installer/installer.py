@@ -1,5 +1,4 @@
-﻿import urllib.request as req
-from subprocess import check_output
+﻿from subprocess import check_output
 import sys, os
 import winreg as wreg
 import json
